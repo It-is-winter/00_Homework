@@ -32,7 +32,7 @@ public class ChatChannelView {
 			System.out.println("1. 채팅채널 만들기");
 			System.out.println("2. 채팅채널 변경하기");
 			System.out.println("3. 채팅채널 삭제하기");
-//			System.out.println("4. 채팅방 입장하기");
+			System.out.println("4. 채팅방 입장하기");
 			System.out.println("5. 프로그램 종료");
 			System.out.println();
 			System.out.print("원하시는 메뉴 번호를 입력해주세요 >");
@@ -51,7 +51,7 @@ public class ChatChannelView {
 //					 break;
 			case 2 : updateChannel(); break;
 			case 3 : deleteChannel(); break;
-//			case 4 : new ChatView().chatView(); break;
+			case 4 : new ChatView().chatView(); break;
 			case 5 : System.out.println("프로그램 종료");
 					 sc.close();
 					 return;

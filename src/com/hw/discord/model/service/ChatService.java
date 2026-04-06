@@ -19,10 +19,8 @@ public class ChatService {
 	 * All chats
 	 */
 	public List<Chat> findAll() {
-		if(!chats.isEmpty()) {
-			return chats;
-		}
-		return null;
+		return chats;
+		// 여기서 null이 아닐때만 chats를 return하게 되면 view에서 계속 null을 받기 때문에 NullPointerException 발생
 	}
 	
 	/*
@@ -43,11 +41,70 @@ public class ChatService {
 	/*
 	 * Check that the text is not empty and its length is at most 30
 	 */
-	public boolean validateText(String text) {
+	private boolean validateText(String text) {
 		if((0 < text.length()) && (text.length() <= 30)) {
 			return true;
 		}
 		return false;
 	}
+	
+	/*
+	 * Update the chat
+	 * Only chat's text can be edited
+	 */
+	public int updateChat(int chatId, ChatDto chatDto) {
+		int index = indexOf(chatId);
+		Chat chat = findById(chatId);
+		if(index != -1) {
+			String text = chatDto.getChatText();
+			boolean checkedText = validateText(text);
+			if(checkedText) {
+				chats.set(index, new Chat(chatId, text, chat.createDate()));
+				return 1;
+			}
+		}
+		return 0;
+	}
+	
+	/*
+	 * Delete the chat that matches the chatId
+	 */
+	public Chat deleteChat(int chatId) {
+		int index = indexOf(chatId);
+		if(index != -1) {
+			return chats.remove(index);
+		}
+		return null;
+	}
+	
+	/*
+	 * Find the index that matches the chatId
+	 */
+	private int indexOf(int chatId) {
+		int index = -1;
+		for(int i = 0; i < chats.size(); i++) {
+			if(chats.get(i).chatId() == chatId) {
+				index = i;
+				break;
+			}
+		}
+		return index;
+	}
+	
+	/*
+	 * Find the chat that matches the chatId
+	 */
+	private Chat findById(int chatId) {
+		int index = indexOf(chatId);
+		if(index != -1) {
+			for(int i = 0; i < chats.size(); i++) {
+				if(i == index) {
+					return chats.get(i);
+				}
+			}
+		}
+		return null;
+	}
+	
 
 }

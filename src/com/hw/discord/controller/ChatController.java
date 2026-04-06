@@ -22,5 +22,19 @@ public class ChatController {
 	public int createChat(ChatDto chat) {
 		return chatService.createChat(chat);
 	}
+	
+	/*
+	 * Update the chat
+	 */
+	public int updateChat(int chatId, ChatDto chat) {
+		return chatService.updateChat(chatId, chat);
+	}
+	
+	/*
+	 * Delete the chat
+	 */
+	public Chat deleteChat(int chatId) {
+		return chatService.deleteChat(chatId);
+	}
 
 }
