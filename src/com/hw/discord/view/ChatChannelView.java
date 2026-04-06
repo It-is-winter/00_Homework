@@ -135,6 +135,7 @@ public class ChatChannelView {
 				id = Integer.parseInt(channelId);
 			} catch(NumberFormatException e) {
 				System.out.println("숫자로 입력해주세요.");
+				continue;
 			}
 			// 채널 이름만 변경
 			// 채널 공개여부만 변경
@@ -148,8 +149,8 @@ public class ChatChannelView {
 				continue;
 			}
 		}
-		int updateMenu = 0;
 		while(true) { // 숫자를 입력하지 않았을 때 변경선택 메뉴 다시 보여줌
+			int updateMenu = 0;
 			System.out.println();
 			System.out.println("무엇을 변경하시겠습니까?");
 			System.out.println("1. 채널이름만 변경하기");
@@ -160,28 +161,33 @@ public class ChatChannelView {
 			try {
 				updateMenu = sc.nextInt();
 				sc.nextLine();
-				break;
 			} catch(InputMismatchException e) {
 				System.out.println("숫자로 입력해주세요.");
 				sc.nextLine();
 				continue;
 			}
-		}
-		System.out.println();
-		switch(updateMenu) {
-		case 1 : System.out.print("변경할 채널 이름(10자 이하) : ");
-		channelName = sc.nextLine();
-		// channelId와 일치하는 ChatChannel의 Open값 그대로 넣어주기 : 변함없음
-		open = chatChannel.isOpen();
-		break;
-		case 2 : open = checkOpen(); 
-		// channelId와 일치하는 ChatChannel의 채널이름값 그대로 넣어주기 : 변함없음
-		channelName = chatChannel.getChannelName();
-		break;
-		case 3 : System.out.print("변경할 채널 이름(10자 이하) : ");
-		channelName = sc.nextLine();
-		open = checkOpen();
-		break;
+			System.out.println();
+			switch(updateMenu) {
+			case 1 : System.out.print("변경할 채널 이름(10자 이하) : ");
+			channelName = sc.nextLine();
+			// channelId와 일치하는 ChatChannel의 Open값 그대로 넣어주기 : 변함없음
+			open = chatChannel.isOpen();
+			break;
+			case 2 : open = checkOpen(); 
+			// channelId와 일치하는 ChatChannel의 채널이름값 그대로 넣어주기 : 변함없음
+			channelName = chatChannel.getChannelName();
+			break;
+			case 3 : System.out.print("변경할 채널 이름(10자 이하) : ");
+			channelName = sc.nextLine();
+			open = checkOpen();
+			break;
+			default : System.out.println("존재하지 않는 메뉴입니다. 다시 선택해주세요."); continue;
+			}
+			if(channelName != null) {
+				break;
+			} else {
+				continue;
+			}
 		}
 		// view 역할 끝!
 				
