@@ -117,69 +117,83 @@ public class ChatChannelView {
 	 * 무엇을 수정하는지에 따라 채널이름, 채널의 공개여부 입력받기
 	 */
 	private void updateChannel() {
-		System.out.println();
-		System.out.println("-------------------------------------------------------");
-		System.out.println("\t\t\t채널 수정하기");
-		System.out.println("-------------------------------------------------------");
-		findAll();
-		System.out.println("-------------------------------------------------------");
-		System.out.print("수정하고 싶은 채널의 번호를 입력해주세요 >");
-		String channelId = sc.nextLine();
-		int id = Integer.parseInt(channelId);
-		// 채널 이름만 변경
-		// 채널 공개여부만 변경
-		// 채널의 이름과 공개여부 변경
-		// 어떤걸 변경하고 싶을지 모름
+		int id = 0;
 		String channelName = "";
 		boolean open = false;
+		ChatChannel chatChannel = null;
+		while(true) {
+			System.out.println();
+			System.out.println("-------------------------------------------------------");
+			System.out.println("\t\t\t채널 수정하기");
+			System.out.println("-------------------------------------------------------");
+			findAll();
+			System.out.println("-------------------------------------------------------");
+			System.out.print("수정하고 싶은 채널의 번호를 입력해주세요 >");
+			String channelId = "";
+			channelId = sc.nextLine();
+			try {
+				id = Integer.parseInt(channelId);
+			} catch(NumberFormatException e) {
+				System.out.println("숫자로 입력해주세요.");
+			}
+			// 채널 이름만 변경
+			// 채널 공개여부만 변경
+			// 채널의 이름과 공개여부 변경
+			// 어떤걸 변경하고 싶을지 모름
+			chatChannel = channelController.findById(id);
+			if(chatChannel != null) { // 입력한 값에 일치하는 채널이 있을 때만 아래 코드 수행
+				break;
+			} else {
+				System.out.println("존재하지 않는 채널입니다. 다시 선택해주세요");
+				continue;
+			}
+		}
+		int updateMenu = 0;
 		while(true) { // 숫자를 입력하지 않았을 때 변경선택 메뉴 다시 보여줌
 			System.out.println();
 			System.out.println("무엇을 변경하시겠습니까?");
 			System.out.println("1. 채널이름만 변경하기");
 			System.out.println("2. 채널의 공개여부만 변경하기");
 			System.out.println("3. 이름과 공개여부 둘 다 변경하기");
+			System.out.println();
 			System.out.print("변경하시고 싶은 내용의 번호를 입력해주세요 >");
-			int updateMenu = 0;
 			try {
 				updateMenu = sc.nextInt();
 				sc.nextLine();
+				break;
 			} catch(InputMismatchException e) {
 				System.out.println("숫자로 입력해주세요.");
 				sc.nextLine();
-			}
-			System.out.println();
-			ChatChannel chatChannel = channelController.findById(id);
-			switch(updateMenu) {
-			case 1 : System.out.print("변경할 채널 이름(10자 이하) : ");
-					 channelName = sc.nextLine();
-					 // channelId와 일치하는 ChatChannel의 Open값 그대로 넣어주기 : 변함없음
-					 open = chatChannel.isOpen();
-					 break;
-			case 2 : open = checkOpen(); 
-					 // channelId와 일치하는 ChatChannel의 채널이름값 그대로 넣어주기 : 변함없음
-					 channelName = chatChannel.getChannelName();
-					 break;
-			case 3 : System.out.print("변경할 채널 이름(10자 이하) : ");
-					 channelName = sc.nextLine();
-					 open = checkOpen();
-					 break;
-			}
-			// view 역할 끝!
-			
-			// controller에 값 넘겨주기
-			ChatChannelDto channel = new ChatChannelDto(channelName, open);
-			int result = channelController.updateChannel(id, channel);
-			// 수정 성공 여부 출력해주기
-			if(result == 1) {
-				System.out.println("변경 성공!");
-				break;
-			} else {
-				System.out.println("변경에 실패하였습니다..");
-				break;
+				continue;
 			}
 		}
-		
-		
+		System.out.println();
+		switch(updateMenu) {
+		case 1 : System.out.print("변경할 채널 이름(10자 이하) : ");
+		channelName = sc.nextLine();
+		// channelId와 일치하는 ChatChannel의 Open값 그대로 넣어주기 : 변함없음
+		open = chatChannel.isOpen();
+		break;
+		case 2 : open = checkOpen(); 
+		// channelId와 일치하는 ChatChannel의 채널이름값 그대로 넣어주기 : 변함없음
+		channelName = chatChannel.getChannelName();
+		break;
+		case 3 : System.out.print("변경할 채널 이름(10자 이하) : ");
+		channelName = sc.nextLine();
+		open = checkOpen();
+		break;
+		}
+		// view 역할 끝!
+				
+		// controller에 값 넘겨주기
+		ChatChannelDto channel = new ChatChannelDto(channelName, open);
+		int result = channelController.updateChannel(id, channel);
+		// 수정 성공 여부 출력해주기
+		if(result == 1) {
+			System.out.println("변경 성공!");
+		} else {
+			System.out.println("변경에 실패하였습니다..");
+		}
 	}
 	
 	/*
