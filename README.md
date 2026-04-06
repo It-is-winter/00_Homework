@@ -1,8 +1,10 @@
 DiscordChatChannelCRUD ClassDiagram
-<img width="19990" height="10210" alt="Image" src="https://github.com/user-attachments/assets/54990277-f419-454a-a2de-5af2a75c4e15" />
+
+<img width="1472" height="801" alt="Image" src="https://github.com/user-attachments/assets/25e79e0e-4c2f-4a6f-82ee-4c180f2a3a7a" />
 
 
 
 
 DiscordChatCRUD ClassDiagram
-<img width="22140" height="10210" alt="Image" src="https://github.com/user-attachments/assets/728ed932-73a9-4c35-a588-da983ebdda9b" />
+
+<img width="1185" height="629" alt="Image" src="https://github.com/user-attachments/assets/8af30f11-6cb6-4116-af7c-a39a2193f93f" />
