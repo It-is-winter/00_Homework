@@ -11,9 +11,6 @@ import com.hw.discord.model.vo.Chat;
 public class ChatService {
 	private List<Chat> chats = new ArrayList();
 	int chatId;
-	{
-//		chats.add(new Chat(++chatId, "첫 채팅", new SimpleDateFormat("yyyy년 MM월 dd일").format(new Date())));
-	}
 	
 	/*
 	 * All chats
@@ -30,22 +27,12 @@ public class ChatService {
 	 */
 	public int createChat(ChatDto chat) {
 		String chatText = chat.getChatText();
-		boolean checkedText = validateText(chatText);
+		boolean checkedText = validateChatText(chatText);
 		if(checkedText) {
 			chats.add(new Chat(++chatId, chatText, new SimpleDateFormat("yyyy년 MM월 dd일").format(new Date())));
 			return 1;
 		}
 		return 0;
-	}
-	
-	/*
-	 * Check that the text is not empty and its length is at most 30
-	 */
-	private boolean validateText(String text) {
-		if((0 < text.length()) && (text.length() <= 30)) {
-			return true;
-		}
-		return false;
 	}
 	
 	/*
@@ -57,7 +44,7 @@ public class ChatService {
 		Chat chat = findById(chatId);
 		if(index != -1) {
 			String text = chatDto.getChatText();
-			boolean checkedText = validateText(text);
+			boolean checkedText = validateChatText(text);
 			if(checkedText) {
 				chats.set(index, new Chat(chatId, text, chat.createDate()));
 				return 1;
@@ -75,6 +62,16 @@ public class ChatService {
 			return chats.remove(index);
 		}
 		return null;
+	}
+	
+	/*
+	 * Check that the text is not empty and its length is at most 30
+	 */
+	private boolean validateChatText(String text) {
+		if((0 < text.length()) && (text.length() <= 30)) {
+			return true;
+		}
+		return false;
 	}
 	
 	/*
@@ -105,6 +102,5 @@ public class ChatService {
 		}
 		return null;
 	}
-	
 
 }

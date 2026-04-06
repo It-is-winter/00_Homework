@@ -51,7 +51,7 @@ public class ChatChannelView {
 //					 break;
 			case 2 : updateChannel(); break;
 			case 3 : deleteChannel(); break;
-			case 4 : new ChatView().chatView(); break;
+			case 4 : new ChatView().chatMenu(); break;
 			case 5 : System.out.println("프로그램 종료");
 					 sc.close();
 					 return;

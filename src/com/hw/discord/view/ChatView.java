@@ -12,7 +12,7 @@ public class ChatView {
 	private ChatController chatController = new ChatController();
 	private Scanner sc = new Scanner(System.in);
 	
-	public void chatView() {
+	public void chatMenu() {
 		while(true) {
 			System.out.println();
 			System.out.println("=======================================================");
