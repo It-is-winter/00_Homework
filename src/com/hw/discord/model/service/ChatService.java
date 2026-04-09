@@ -70,11 +70,7 @@ public class ChatService {
 	public Chat findById(int chatId) {
 		int index = indexOf(chatId);
 		if(index != -1) {
-			for(int i = 0; i < chats.size(); i++) {
-				if(i == index) {
-					return chats.get(i);
-				}
-			}
+			return chats.get(index);
 		}
 		return null;
 	}
